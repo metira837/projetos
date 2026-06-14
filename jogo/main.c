@@ -2,15 +2,15 @@
 #include "enemy.h"
 #include <stdio.h>
 
-struct perso your_race(struct perso perso1);
+void your_race(struct perso *perso1);
 
 
 int main(void){
 	struct perso you;
-	your_race(you);
-	printf("%s", you.race);
-
-
+	printf("what is your name?\n"); scanf("%s", &you.name);
+	printf("welcome, %s\n", you.name);
+	your_race(&you);		
+	
 	return 0;
 }
 

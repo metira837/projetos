@@ -11,5 +11,5 @@ struct perso{
 
 /* functions of perso.c */
 
-struct perso your_race(struct perso perso1);
+void your_race (struct perso *perso1);
 

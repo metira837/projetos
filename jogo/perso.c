@@ -4,15 +4,24 @@
 #include <string.h>
 #include <stdlib.h>
 
-struct perso your_race(struct perso perso1){
+
+
+
+void your_race(struct perso *perso1){
+	short int chances = 3;
+	char p[2];
 	char races[4][7] = {"demon", "sky", "human", "golbin"};
 
-	srand(time(NULL));
-	short int random = rand() % 4;
+	printf("test your lucky for have one race good\n");
 
+	do{
+		srand(time(NULL));
+		short int random = rand() % 4;
+		strcpy(perso1->race, races[random]);	
+		printf("you got a race %s\nyou wants trade this race?", perso1->race); scanf("%s", p);
+		--chances;
 
-	strcpy(perso1.race, races[random]);
-	printf("your race %s\n", perso1.race);
-	return perso1;
-
+	}while (chances != 0 && strcmp(p, "no"));
+	if(chances == 0)
+		printf("you no have more chances ;((\n");
 }
