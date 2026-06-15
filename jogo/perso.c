@@ -5,6 +5,30 @@
 #include <stdlib.h>
 
 
+/* i create this function because use function of string.h the programa stay slow */
+static char *stn(char *dst, const char *src){
+	short int a = 0;
+	for(; src[a] != '\0';a++){
+		dst[a] = src[a];
+	}
+	dst[a] = '\0';
+	return dst;
+}
+
+
+
+
+
+void create_perso(struct perso *perso1){
+	printf("your status:\n");
+	perso1->hp = 100;
+	perso1->damage = 10;
+	perso1->defense = 10;
+
+	stn(perso1->attacks[0], "ball of fire");
+	stn(perso1->attacks[1], "ball of water");
+	stn(perso1->attacks[2], "ball of wind");
+}
 
 
 void your_race(struct perso *perso1){
@@ -12,7 +36,7 @@ void your_race(struct perso *perso1){
 	char p[2];
 	char races[4][7] = {"demon", "sky", "human", "golbin"};
 
-	printf("test your lucky for have one race good\n");
+	printf("test your lucky for one race good\n");
 
 	do{
 		srand(time(NULL));
@@ -23,5 +47,5 @@ void your_race(struct perso *perso1){
 
 	}while (chances != 0 && strcmp(p, "no"));
 	if(chances == 0)
-		printf("you no have more chances ;((\n");
+		printf("you no has more chances ;((\n");
 }
