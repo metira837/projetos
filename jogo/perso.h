@@ -1,10 +1,20 @@
+struct attack{
+	short int damage;
+	char type[5];
+	short int pp;
+	char name[21];
+
+};
+
 struct perso{
 	short int hp;
 	char name[40];
 	short int damage;
 	short int defense;
 	char race[10];
-	char attacks[3][20];
+	struct attack attacks[3];
+	char typ[8];
+	char jq[8];
 
 };
 

@@ -11,7 +11,9 @@ int main(void){
 	printf("welcome, %s\n", you.name);
 	your_race(&you);		
 	create_perso(&you);
-	printf("%s\n", you.attacks[0]);
+	printf("%d\n", you.hp);
+	printf("%d\n", you.damage);
+	printf("%d\n", you.defense);
 	return 0;
 }
 
