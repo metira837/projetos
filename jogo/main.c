@@ -14,6 +14,7 @@ int main(void){
 	printf("%d\n", you.hp);
 	printf("%d\n", you.damage);
 	printf("%d\n", you.defense);
+	printf("%s\n", you.type);
 	return 0;
 }
 

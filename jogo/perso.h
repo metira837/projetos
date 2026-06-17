@@ -13,12 +13,9 @@ struct perso{
 	short int defense;
 	char race[10];
 	struct attack attacks[3];
-	char typ[8];
-	char jq[8];
+	char type[5];
 
 };
-
-
 /* functions of perso.c */
 
 void your_race (struct perso *perso1);
