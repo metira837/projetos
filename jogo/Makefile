@@ -1,7 +1,7 @@
 .PHONY:	run compile clean
 
 obj = main.c perso.c perso.h
-file = main
+file = main 
 
 run: compile
 	@./$(file)

@@ -40,10 +40,10 @@ static void race_status(struct perso *perso2){
 	
 
 void create_perso(struct perso *perso2){
-	printf("your status:\n");
 	perso2->hp = 100;
 	perso2->damage = 10;
 	perso2->defense = 10;
+	perso2->money = 20;
 	race_status(perso2);
 }
 

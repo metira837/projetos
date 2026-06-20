@@ -14,6 +14,7 @@ struct perso{
 	char race[10];
 	struct attack attacks[3];
 	char type[5];
+	short int money;
 
 };
 /* functions of perso.c */
