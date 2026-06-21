@@ -43,7 +43,7 @@ void create_perso(struct perso *perso2){
 	perso2->hp = 100;
 	perso2->damage = 10;
 	perso2->defense = 10;
-	perso2->money = 20;
+	perso2->money = 40;
 	race_status(perso2);
 }
 
