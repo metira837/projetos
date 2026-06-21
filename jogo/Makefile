@@ -1,17 +1,14 @@
 .PHONY:	run compile clean
 
-obj = main.c perso.c perso.h
+obj = main.c perso.c perso.h shop.c shop.h
 file = main 
-
+CC ?= cc
 run: compile
 	@./$(file)
 
-clean:
-	rm -f $(file)
-
-
 compile:
 	@echo "compile...."
-	cc $(obj) -o $(file)
-	
+	$(CC) $(obj) -o $(file) -Wall -Wextra
+clean:
+	rm -f $(file)
 

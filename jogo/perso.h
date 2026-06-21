@@ -1,3 +1,6 @@
+#ifndef PERSO_H
+#define PERSO_H
+
 struct attack{
 	short int damage;
 	char type[5];
@@ -21,3 +24,4 @@ struct perso{
 
 void your_race (struct perso *perso1);
 void create_perso(struct perso *perso1);
+#endif
