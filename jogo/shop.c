@@ -42,10 +42,11 @@ static void option(short int money, struct perso *perso1){
 			else if(money < 30)
 				printf("necessary 30 of money");
 			else{
-				printf("you obtained the skill %s\n", skills[a].name);
-				strcpy(perso1->attacks[1].name, skills[a].name);
-				strcpy(perso1->attacks[1].type, skills[a].type);
-				perso1->attacks[1].pp = skills[a].pp;
+				printf("you obtained the skill %s\n", skills[a-1].name);
+				strcpy(perso1->attacks[1].name, skills[a-1].name);
+				strcpy(perso1->attacks[1].type, skills[a-1].type);
+				perso1->attacks[1].pp = skills[a-1].pp;
+				perso1->money -= 30;
 						
 			}
 			break;
@@ -59,7 +60,7 @@ static void option(short int money, struct perso *perso1){
 				printf("necessary 50 of money");
 			else{
 				printf("you obtained the potion");
-				
+				perso1->money -= 50;
 			}
 			break;
 		case 3:

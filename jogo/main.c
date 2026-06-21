@@ -20,6 +20,8 @@ int main(void){
 	printf("%d\n", you.defense);
 	printf("%s\n", you.type);
 	shop(you.money, &you);
+	printf("%d\n", you.money);
+	printf("%s\n", you.attacks[1].name);
 	
 	return 0;
 	}
