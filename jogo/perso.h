@@ -8,7 +8,11 @@ struct attack{
 	char name[21];
 
 };
+struct item{
+	char name[20];
+	short int quantity;
 
+};
 struct perso{
 	short int hp;
 	char name[40];
@@ -18,6 +22,7 @@ struct perso{
 	struct attack attacks[3];
 	char type[5];
 	short int money;
+	struct item itens[5];
 
 };
 /* functions of perso.c */

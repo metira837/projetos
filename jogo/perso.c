@@ -44,6 +44,7 @@ void create_perso(struct perso *perso2){
 	perso2->damage = 10;
 	perso2->defense = 10;
 	perso2->money = 40;
+	strcpy(perso2->attacks[1].name, "ball of fire");
 	race_status(perso2);
 }
 
