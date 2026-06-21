@@ -1,10 +1,10 @@
 #include <stdio.h>
+#include "shop.h"
 #include <string.h>
-#include "perso.h"
 
-static void option(short int options, short int money, struct perso perso1){
+static void option(short int options, short int money, struct perso *perso1){
 	short int a; 
-	char skills[4][19] = {"ball of wind", "ball of fire", "ball of water", "ball of earth"};
+	struct attack skills[4] = {{20, "wind", 20, "ball of wind"}, {20, "fire", 20, "ball of fire"}, {20, "water", 20, "ball of water"}, {20,"earth", 20, "ball of earth"}};
        
 
 	switch(options)	{
@@ -13,10 +13,10 @@ static void option(short int options, short int money, struct perso perso1){
 			if(money < 30)
 				printf("necessary 30 of money");
 			else{
-				printf("you obtained the skill %s\n", skills[a]);
-				strcpy(perso1.attacks[1].name, skills[a+1]);
-				strcpy(perso1.attacks[1].type, "earth");
-				perso1.attacks[1].pp = 25;
+				printf("you obtained the skill %s\n", skills[a].name);
+				strcpy(perso1->attacks[1].name, skills[a].name);
+				strcpy(perso1->attacks[1].type, skills[a].type);
+				perso1->attacks[1].pp = skills[a].pp;
 						
 			}
 			break;
@@ -36,9 +36,9 @@ static void option(short int options, short int money, struct perso perso1){
 	
 	
 }
-void shop(short int money, struct perso perso1){
+void shop(short int money, struct perso *perso1){
 	short int options = 0;
-	printf("welcome the shop\nyou has %d", money);
+	printf("welcome the shop\nyou has %d of money\n", money);
 	printf("select option that wants buy:\n1-moves 2-items\n"); scanf("%hd", &options);
 	option(options, money, perso1);	
 

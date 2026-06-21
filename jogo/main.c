@@ -7,7 +7,7 @@
 
 void your_race(struct perso *perso1);
 void create_perso(struct perso *perso1);
-void shop(short int money);
+void shop(short int money, struct perso *perso1);
 
 int main(void){
 	struct perso you;
@@ -19,7 +19,7 @@ int main(void){
 	printf("%d\n", you.damage);
 	printf("%d\n", you.defense);
 	printf("%s\n", you.type);
-	shop(you.money);
+	shop(you.money, &you);
 	
 	return 0;
 	}
