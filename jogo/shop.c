@@ -4,7 +4,7 @@
 
 
 
-short int show_shop(short int options){
+static short int show_shop(short int options){
 	short int a;
 	switch(options){
 		case 1:
@@ -34,7 +34,12 @@ static void option(short int money, struct perso *perso1){
 	switch(options)	{
 		case 1:
 			a = show_shop(options);
-			if(money < 30)
+			if(a > 4){
+				printf("no exist this option\n");
+				goto option;
+			}
+
+			else if(money < 30)
 				printf("necessary 30 of money");
 			else{
 				printf("you obtained the skill %s\n", skills[a].name);
@@ -46,7 +51,11 @@ static void option(short int money, struct perso *perso1){
 			break;
 		case 2:
 			a = show_shop(options);
-			if(money < 50)
+			if(a > 1){
+				printf("this option not exist\n");
+				goto option;
+			}
+			else if(money < 50)
 				printf("necessary 50 of money");
 			else{
 				printf("you obtained the potion");
