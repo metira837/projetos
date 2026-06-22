@@ -1,11 +1,13 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "shop.h"
 #include <string.h>
 #include <stdbool.h>
 
 static short int check_bag(struct perso *perso1){
 	short int b = 0;
-	for(;b > 4; b++){
+	short int tam = sizeof(perso1->itens) / sizeof(perso1->itens[0]);
+	for(;b > tam; b++){
 		if(perso1->attacks[b].pp == 0){
 			break;
 		}
@@ -16,7 +18,7 @@ static short int check_bag(struct perso *perso1){
 }
 
 static bool check_attack(char name[],struct perso *perso1){
-	short int a = 3;
+	short int a = sizeof(perso1->attacks) / sizeof(perso1->attacks[0]);
 	bool ks = false;
 	for(; a > 0; a--){
 		if((strcmp(name, perso1->attacks[a].name)) == 0){
@@ -51,7 +53,7 @@ static short int show_shop(short int options){
 
 static void option(short int money, struct perso *perso1){
 	short int a, options; 
-		struct attack skills[4] = {{.damage = 20, .type = "wind", .pp = 20, .name = "ball of wind", .action = "attack"}, {.damage = 20, .type = "fire", .pp = 20, .name = "ball of fire", .action = "attack"}, {.damage = 20, .type = "water", .pp = 20, .name = "ball of water", .action = "attack"}, {.damage = 20,.type ="earth", .pp = 20, .name = "ball of earth", .action = "attack"}};
+		struct attack skills[4] = {{20,"wind", 20, "ball of wind", "attack"}, {.damage = 20, .type = "fire", .pp = 20, .name = "ball of fire", .action = "attack"}, {.damage = 20, .type = "water", .pp = 20, .name = "ball of water", .action = "attack"}, {.damage = 20,.type ="earth", .pp = 20, .name = "ball of earth", .action = "attack"}};
 		struct item itens1[2] = {{"poison potion", 1, .action = "attack"}, {"heal potion", 1, .action = "potion"}};
 
 
