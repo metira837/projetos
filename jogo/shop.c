@@ -11,7 +11,6 @@ static short int check_bag(struct perso *perso1){
 		}
 		
 	}
-	printf("b = %d\n",b);
 	return b; 	
 	
 }
