@@ -51,7 +51,7 @@ static short int show_shop(short int options){
 
 static void option(short int money, struct perso *perso1){
 	short int a, options; 
-	struct attack skills[4] = {{20, "wind", 20, "ball of wind"}, {20, "fire", 20, "ball of fire"}, {20, "water", 20, "ball of water"}, {20,"earth", 20, "ball of earth"}};
+	struct attack skills[4] = {{.damage = 20, .type = "wind", .pp = 20, .name "ball of wind", action = "attack"}, {.damage = 20, .type = "fire", .pp 20, .name = "ball of fire"}, {.damage = 20, .type = "water", .pp 20, .name = "ball of water", .action = "attack"}, {.damage = 20,.type ="earth", .pp = 20, .name "ball of earth", action = "attack"}};
 	struct item itens1[2] = {{"poison potion", 1}, {"heal potion", 1}};
 
 

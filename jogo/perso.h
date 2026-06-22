@@ -6,12 +6,12 @@ struct attack{
 	char type[5];
 	short int pp;
 	char name[21];
-
+	char action[7]
 };
 struct item{
 	char name[20];
 	short int quantity;
-
+	char action[6]
 };
 struct perso{
 	short int hp;
