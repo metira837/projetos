@@ -1,6 +1,6 @@
 .PHONY:	run compile clean
 
-obj = main.c perso.c perso.h shop.c shop.h
+obj = main.c perso.c perso.h shop.c shop.h enemy.h enemy.c
 file = main 
 CC ?= cc
 run: compile
