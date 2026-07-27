@@ -3,7 +3,7 @@
 
 struct attack{
 	short int damage;
-	char type[5];
+	char type[7];
 	short int pp;
 	char name[21];
 	char action[7];
@@ -11,7 +11,7 @@ struct attack{
 struct item{
 	char name[20];
 	short int quantity;
-	char action[6];
+	char action[7];
 };
 struct perso{
 	short int hp;
@@ -29,4 +29,6 @@ struct perso{
 
 void your_race (struct perso *perso1);
 void create_perso(struct perso *perso1);
+void show_you(struct perso *perso1);
+
 #endif

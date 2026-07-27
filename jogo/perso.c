@@ -5,7 +5,39 @@
 #include <stdlib.h>
 
 
+static void no_sei(struct perso *perso1){
+	short int a = sizeof(perso1->attacks) / sizeof(perso1->attacks[0]);
+		
+	for(short int b = 0; b <= a; b++){
+		printf("attack %hd: %s\n", b+1, perso1->attacks[b].name);
+	
+	}
 
+
+}
+static void no_sei2(struct perso *perso1){
+	short int a = sizeof(perso1->itens) / sizeof(perso1->itens[0]);
+	for(short int b = 0; b <= a; b++){
+		printf("item %hd: %s\n", b+1,  perso1->itens[b].name);
+	
+	}
+
+}
+void show_you(struct perso *perso1){
+	printf("name: %s\n", perso1->name);
+	printf("hp: %hd\n", perso1->hp);
+	printf("attack: %hd\n", perso1->damage);
+	printf("defense: %hd\n", perso1->defense);
+	printf("race: %s\n", perso1->race);
+	printf("type: %s\n", perso1->type);
+	printf("money: %hd\n", perso1->money);
+	no_sei(perso1);
+	no_sei2(perso1);
+
+
+
+
+}
 static void race_status(struct perso *perso2){
 	if((strcmp(perso2->race, "demon")) == 0){
 		perso2->hp += 50;
@@ -44,7 +76,6 @@ void create_perso(struct perso *perso2){
 	perso2->damage = 10;
 	perso2->defense = 10;
 	perso2->money = 50;
-	strcpy(perso2->attacks[1].name, "ball of fire");
 	race_status(perso2);
 }
 
