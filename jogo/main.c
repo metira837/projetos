@@ -11,8 +11,7 @@ void shop(short int money, struct perso *perso1);
 void show_you(struct perso *perso1);
 void no_sei2(struct perso *perso1);
 void no_sei2(struct perso *perso1);
-void random_enemy(struct enemy *enemy1);
-
+void create_enemy(struct enemy *enemy1);
 
 int main(void){
 	struct perso you;
@@ -23,8 +22,12 @@ int main(void){
 	create_perso(&you);
 	shop(you.money, &you);
 	show_you(&you);
-	random_enemy(&enemy1);
+	create_enemy(&enemy1);
 	printf("%s\n", enemy1.name);
+	printf("%hd\n", enemy1.hp);
+	printf("%hd\n", enemy1.damage);
+	printf("%hd\n", enemy1.defense);
+	printf("%s\n", enemy1.attack[0].name);
 	return 0;
 	}
 

@@ -2,7 +2,7 @@
 #define HEADER_ENEMY
 
 struct attack_enemy{
-	char name[10];
+	char name[15];
 	short int damage;
 	char type[10];
 };
@@ -15,7 +15,7 @@ struct enemy{
 	char type[7];
 	struct attack_enemy attack[1];
 };
-void random_enemy(struct enemy *enemy1);
+void create_enemy(struct enemy *enemy1);
 #endif
 
 
