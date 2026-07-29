@@ -37,7 +37,7 @@ static short int show_shop(short int options){
 			printf("1-ball of wind(cost 30 money)\n2-ball of fire(cost 30 money)\n3-ball of water(cost 30 money)\n4-ball of earth(cost 30 money)\n"); scanf("%hd", &a);
 			break;
 		case 2:
-			printf("1-heal Potion(cost 50 money)\n2-poison potion(cost 50 of money)\n"); scanf("%hd", &a);
+			printf("1-heal potion(cost 50 money)\n2-poison potion(cost 50 of money)\n"); scanf("%hd", &a);
 			break;
 		case 3:
 			printf("leaving of shop...\n");

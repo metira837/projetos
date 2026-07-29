@@ -14,6 +14,7 @@ struct enemy{
 	short int defense;
 	char type[7];
 	struct attack_enemy attack[1];
+	char effect[7];
 };
 void create_enemy(struct enemy *enemy1);
 #endif

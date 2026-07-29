@@ -33,7 +33,7 @@ void show_you(struct perso *perso1){
 	no_sei(perso1);
 	no_sei2(perso1);
 
-}
+	}
 
 static void race_status(struct perso *perso2){
 	if((strcmp(perso2->race, "demon")) == 0){
@@ -42,18 +42,18 @@ static void race_status(struct perso *perso2){
 		perso2->defense += 10;
 		strcpy(perso2->type, "fire");
 
-	}
+		}
 	else if((strcmp(perso2->race,"human")) == 0){
 		perso2->hp -= 10;
 		perso2->damage += 30;
 		perso2->defense -= 5;
 		strcpy(perso2->type, "earth");
 
-	}
+		}
 	else if((strcmp(perso2->race, "sky")) == 0){
 		perso2->hp += 100;	
 		perso2->damage -= 5;
-	       	perso2->defense -= 5;	
+		perso2->defense -= 5;	
 		strcpy(perso2->type, "wind");
 
 	}
@@ -63,17 +63,17 @@ static void race_status(struct perso *perso2){
 		perso2->damage -= 5;
 		strcpy(perso2->type, "water");
 
-	}
+		}
 
-}
-	
+	}
+		
 void create_perso(struct perso *perso2){
 	perso2->hp = 100;
 	perso2->damage = 10;
 	perso2->defense = 10;
 	perso2->money = 50;
 	race_status(perso2);
-}
+	}
 
 void your_race(struct perso *perso2){
 	short int chances = 3;
