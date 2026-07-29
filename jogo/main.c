@@ -1,4 +1,5 @@
 #include "shop.h"
+#include <stdbool.h>
 #include "perso.h"
 #include "enemy.h"
 #include <stdio.h>
@@ -14,7 +15,9 @@ void no_sei2(struct perso *perso1);
 void create_enemy(struct enemy *enemy1);
 
 int main(void){
+	short int wave = 0;
 	struct perso you;
+	bool option = true;
 	struct enemy enemy1;
 	printf("what is your name?\n"); scanf("%s", you.name);
 	printf("welcome, %s\n", you.name);
@@ -23,11 +26,14 @@ int main(void){
 	shop(you.money, &you);
 	show_you(&you);
 	create_enemy(&enemy1);
-	printf("%s\n", enemy1.name);
-	printf("%hd\n", enemy1.hp);
-	printf("%hd\n", enemy1.damage);
-	printf("%hd\n", enemy1.defense);
-	printf("%s\n", enemy1.attack[0].name);
+		
+	do{
+		printf("you is at wave %hd\n", wave);
+		++wave;
+	
+	}
+	
+	while(you.hp != 0 || option != false);
 	return 0;
 	}
 
