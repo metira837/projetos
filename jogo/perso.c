@@ -4,6 +4,22 @@
 #include <string.h>
 #include <stdlib.h>
 
+short int pos_attack(struct perso *perso1){
+	short int pos;
+	for(long int unsigned a = 0; a < sizeof(perso1->attacks) / sizeof(perso1->attacks[0]);a++){
+		if(perso1->attacks[a].name[0] =='\0')	
+			break;
+		pos++;
+	
+	}
+	return pos;	
+}
+void add_attack(struct perso *perso1, short int pos, char name_attack[]){
+	strcpy(perso1->attacks[pos].name, name_attack);
+	perso1->attacks[pos].pp = 20;
+	perso1->attacks[pos].damage = 10;
+	strcpy(perso1->attacks[pos].action, "attack");
+}
 
 void no_sei(struct perso *perso1){
 	short int a = sizeof(perso1->attacks) / sizeof(perso1->attacks[0]);		
@@ -41,13 +57,14 @@ static void race_status(struct perso *perso2){
 		perso2->damage += 10;
 		perso2->defense += 10;
 		strcpy(perso2->type, "fire");
-
+		add_attack(perso2, pos_attack(perso2), "ball of fire");
 		}
 	else if((strcmp(perso2->race,"human")) == 0){
 		perso2->hp -= 10;
 		perso2->damage += 30;
 		perso2->defense -= 5;
 		strcpy(perso2->type, "earth");
+		add_attack(perso2, pos_attack(perso2), "ball of earth");
 
 		}
 	else if((strcmp(perso2->race, "sky")) == 0){
@@ -55,6 +72,7 @@ static void race_status(struct perso *perso2){
 		perso2->damage -= 5;
 		perso2->defense -= 5;	
 		strcpy(perso2->type, "wind");
+		add_attack(perso2, pos_attack(perso2), "ball of wind");
 
 	}
 	else if((strcmp(perso2->race, "shark")) == 0){
@@ -62,6 +80,7 @@ static void race_status(struct perso *perso2){
 		perso2->defense += 40;
 		perso2->damage -= 5;
 		strcpy(perso2->type, "water");
+		add_attack(perso2, pos_attack(perso2), "ball of water");
 
 		}
 
