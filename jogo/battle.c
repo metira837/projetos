@@ -42,13 +42,13 @@ struct action show_options(struct perso *perso1){
 		printf("what attack you want use?"); scanf("%hd", &option_action);
 		strcpy(action1.action, "attack");
 		strcpy(action1.action_user, perso1->attacks[option_action-1].name);
-		}
-		
+	}
+			
 	else if(option == 2){
 		no_sei2(perso1);
 		printf("what potion you want use?"); scanf("%hd", &option_action);
 		strcpy(action1.action, "potion");
-		strcpy(action1.action_user, perso1->attacks[option_action-1].name);
+		strcpy(action1.action_user, perso1->itens[option_action-1].name);
 
 	}
 	else{

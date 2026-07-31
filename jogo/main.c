@@ -28,6 +28,7 @@ int main(void){
 	struct perso you;
 	bool option = true;
 	struct enemy enemy1;
+	struct action action1;
 	printf("what is your name?\n"); scanf("%s", you.name);
 	printf("welcome, %s\n", you.name);
 	your_race(&you);		
@@ -39,7 +40,10 @@ int main(void){
 		create_enemy(&enemy1);
 		printf("you is at wave %hd\n", wave);
 		printf("your enemy is %s\n", enemy1.name);
-		show_options(&you);		
+		action1 = show_options(&you);		
+		printf("%s\n", action1.action_user);
+		printf("%s\n", action1.action);
+
 		break;
 
 

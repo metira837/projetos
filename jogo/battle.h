@@ -8,7 +8,7 @@ struct action{
 	// action of user (example: ball of fire or poison potion)
 	char action_user [10];
 	// action of attack or potion
-	char action[8];
+	char action[10];
 
 
 };
