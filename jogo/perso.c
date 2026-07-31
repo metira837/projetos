@@ -92,7 +92,9 @@ void create_perso(struct perso *perso2){
 	perso2->defense = 10;
 	perso2->money = 50;
 	race_status(perso2);
-	}
+}
+
+
 
 void your_race(struct perso *perso2){
 	short int chances = 3;

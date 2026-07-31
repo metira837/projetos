@@ -32,5 +32,4 @@ void create_perso(struct perso *perso1);
 void show_you(struct perso *perso1);
 void no_sei(struct perso *perso1);
 void no_sei2(struct perso *perso1);
-
 #endif

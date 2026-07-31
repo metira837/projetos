@@ -1,4 +1,5 @@
 #include "shop.h"
+#include "battle.h"
 #include <stdbool.h>
 #include "perso.h"
 #include "enemy.h"
@@ -13,11 +14,19 @@ void show_you(struct perso *perso1);
 void no_sei2(struct perso *perso1);
 void no_sei2(struct perso *perso1);
 void create_enemy(struct enemy *enemy1);
+void potions(struct perso *perso1, struct enemy *enemy1, struct item *item1);
+short int attack_perso(struct perso *perso1, struct enemy *enemy1, struct attack *atk_perso);
+void attack_enemy(struct perso *perso1, struct enemy *enemy1,  struct attack_enemy atk_enemy);
+struct action show_options(struct perso *perso1);
+
+
+
+
 
 int main(void){
-	short int wave = 0;
+	short int wave = 1;
 	struct perso you;
-	bool option = false;
+	bool option = true;
 	struct enemy enemy1;
 	printf("what is your name?\n"); scanf("%s", you.name);
 	printf("welcome, %s\n", you.name);
@@ -26,9 +35,14 @@ int main(void){
 	shop(you.money, &you);
 	show_you(&you);
 	create_enemy(&enemy1);
-	you.hp = 0;	
 	do{
+		create_enemy(&enemy1);
 		printf("you is at wave %hd\n", wave);
+		printf("your enemy is %s\n", enemy1.name);
+		show_options(&you);		
+		break;
+
+
 		++wave;
 	
 	}
