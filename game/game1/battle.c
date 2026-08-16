@@ -31,29 +31,28 @@ void attack_enemy(struct perso *perso1, struct enemy *enemy1,  struct attack_ene
 	perso1->hp -= damage;
 }
 
-struct action show_options(struct perso *perso1){
+void show_options(struct perso *perso1, struct action *action1 ){
 	short int option = 0, option_action = 0;
-	struct action action1;
 	printf("1- moves\t 2-itens\n"); scanf("%hd", &option);
 	back:
 
 	if(option == 1){
 		no_sei(perso1);
-		printf("what attack you want use?"); scanf("%hd", &option_action);
-		strcpy(action1.action, "attack");
-		strcpy(action1.action_user, perso1->attacks[option_action-1].name);
+		printf("what attack you want use?\n"); scanf("%hd", &option_action);
+		strcpy(action1->action2, "attack");
+		printf("%s\n" action1->action2);
+		strcpy(action1->action_user, perso1->attacks[option_action-1].name);
 	}
 			
 	else if(option == 2){
 		no_sei2(perso1);
-		printf("what potion you want use?"); scanf("%hd", &option_action);
-		strcpy(action1.action, "potion");
-		strcpy(action1.action_user, perso1->itens[option_action-1].name);
+		printf("what potion you want use?\n"); scanf("%hd", &option_action);
+		strcpy(action1->action2, "potion");
+		strcpy(action1->action_user, perso1->itens[option_action-1].name);
 
 	}
 	else{
 		printf("no exist this option");
 		goto back;
 	}
-	return action1;
 }
