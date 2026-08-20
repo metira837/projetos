@@ -1,4 +1,5 @@
 #include "raylib.h"
+#include "raymath.h"
 
 void draw_rectangle(Rectangle rec[], int recLeght);
 
@@ -22,10 +23,11 @@ int main(void){
 	
 
 	while(!WindowShouldClose()){
+		float dt = GetFrameTime();
 
 		if(IsKeyDown(KEY_D)) ball.x += 10; 
 
-		if(IsKeyDown(KEY_W) && ball.y == screenheight/2-20) ball.y += -70;
+		if(IsKeyDown(KEY_W) && ball.y == screenheight/2-20) ball.y -= 200;
 
 		if(IsKeyDown(KEY_S)) ball.y += 10;
 
@@ -36,9 +38,9 @@ int main(void){
 
 		if(CheckCollisionCircleRec(ball, 10.0f, recs[2])) ball.x = 70;
 	
-		if(ball.x > recs[0].width || ball.x < 0 || ball.y != (screenheight/2) - 20) ball.y += 1;		
+		if(ball.x > recs[0].width || ball.x < 0 || ball.y != (screenheight/2) - 20) ball.y += 2;		
 		if(ball.x > recs[1].width) start_battle = true;
-		if(start_battle == false) ca.target = ball;
+		ca.target = Vector2Lerp(ca.target, ball, 0.100f);
 	
 			
 		BeginDrawing();
