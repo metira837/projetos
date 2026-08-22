@@ -19,8 +19,7 @@ static short int check_bag(struct perso *perso1){
 
 static bool check_attack(char name[],struct perso *perso1){
 	bool ks = false;
-	for(long unsigned int a = 0; a <= sizeof(perso1->attacks) / sizeof(perso1->attacks[0]);
- a--){
+	for(long unsigned int a = 0; a < sizeof(perso1->attacks) / sizeof(perso1->attacks[0]);a++){
 		if((strcmp(name, perso1->attacks[a].name)) == 0){
 			ks = true;
 			break;

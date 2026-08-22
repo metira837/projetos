@@ -7,7 +7,7 @@
 short int pos_attack(struct perso *perso1){
 	short int pos;
 	for(long int unsigned a = 0; a < sizeof(perso1->attacks) / sizeof(perso1->attacks[0]);a++){
-		if(perso1->attacks[a].name[0] =='\0')	
+		if(perso1->attacks[a].name[0] == '\0')	
 			break;
 		pos++;
 	

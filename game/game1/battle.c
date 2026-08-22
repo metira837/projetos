@@ -40,7 +40,7 @@ void show_options(struct perso *perso1, struct action *action1 ){
 		no_sei(perso1);
 		printf("what attack you want use?\n"); scanf("%hd", &option_action);
 		strcpy(action1->action2, "attack");
-		printf("%s\n" action1->action2);
+		printf("%s\n", action1->action2);
 		strcpy(action1->action_user, perso1->attacks[option_action-1].name);
 	}
 			
