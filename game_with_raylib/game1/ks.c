@@ -7,7 +7,7 @@ struct perso{
 	short int hp;
 	Vector2 pos;
 	short int damage;
-	Image texture;
+	Texture2D texture;
 };
 struct enemy{
 	short int hp;
@@ -24,7 +24,11 @@ int main(void){
 	InitWindow(screenwidth, screenheight, "nada");
 
 // 	declare the perso and enemy
-	struct perso perso1 = {.hp = 100, .damage = 10, .pos = {screenwidth/2-50, screenheight/2}};
+	struct perso perso1 = {.hp = 100, .damage = 10, .pos = {screenwidth/2, screenheight/2-100}};
+	Image image_perso = LoadImage("ant.png");
+	ImageResizeNN(&image_perso, 100, 100);
+	perso1.texture = LoadTextureFromImage(image_perso);
+	
 	struct enemy enemy1;
 
 //	declare rectangle
@@ -55,16 +59,16 @@ int main(void){
 		if(IsKeyDown(KEY_A)) perso1.pos.x -= PLAYER_SPEED;
 
 
-		if(CheckCollisionCircleRec(perso1.pos, 10.0f, recs[0])) perso1.pos.y  = screenheight/2 - 20;
+		if(CheckCollisionCircleRec(perso1.pos, 60.0f, recs[0])) perso1.pos.y  = screenheight/2 - 85;
 		if(CheckCollisionCircleRec(perso1.pos, 10.0f, recs[1])) perso1.pos.y += 20;
 		if(CheckCollisionCircleRec(perso1.pos, 10.0f, recs[2])) perso1.pos.x += 10;
 		if(start_battle){
-			if(CheckCollisionCircleRec(perso1.pos, 15.0f, battle[1])) perso1.pos.x -= 10;
-			if(CheckCollisionCircleRec(perso1.pos, 15.0f, battle[0])) perso1.pos.x += 10; 	
+			if(CheckCollisionCircleRec(perso1.pos, 10.0f, battle[1])) perso1.pos.x -= 10;
+			if(CheckCollisionCircleRec(perso1.pos, 10.0f, battle[0])) perso1.pos.x += 10; 	
 		
 		}
 		
-		if(perso1.pos.x > recs[0].width || perso1.pos.x < 0 || perso1.pos.y != (screenheight/2) - 20) perso1.pos.y += 2;		
+		if(perso1.pos.x > recs[0].width || perso1.pos.x < 0 || perso1.pos.y != (screenheight/2) - 85) perso1.pos.y += 2;		
 		if(perso1.pos.x > recs[1].width) start_battle = true;	
 		
 		ca.target = Vector2Lerp(ca.target, perso1.pos, 0.100f);
@@ -72,7 +76,7 @@ int main(void){
 		BeginDrawing();
 		  ClearBackground(RAYWHITE);	
 		  BeginMode2D(ca);
-		  	DrawCircleV(perso1.pos, 20,  RED);
+		  	DrawTexture(perso1.texture, perso1.pos.x, perso1.pos.y, WHITE);
 			DrawText("merda na chaleira", 500, 300, 50, DARKGRAY);
 			draw_rectangle(recs, sizeof(recs) /  sizeof(recs[0]));		
 			if(start_battle){
