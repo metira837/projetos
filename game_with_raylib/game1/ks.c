@@ -63,8 +63,10 @@ int main(void){
 		if(CheckCollisionCircleRec(perso1.pos, 10.0f, recs[1])) perso1.pos.y += 20;
 		if(CheckCollisionCircleRec(perso1.pos, 10.0f, recs[2])) perso1.pos.x += 10;
 		if(start_battle){
-			if(CheckCollisionCircleRec(perso1.pos, 85.0f, battle[1])) perso1.pos.x -= 10;
-			if(CheckCollisionCircleRec(perso1.pos, 3.0f, battle[0])) perso1.pos.x += 10; 	
+			if(CheckCollisionCircleRec(perso1.pos, 1000.0f, battle[1])) perso1.pos.x = battle[1].x;
+			if(CheckCollisionCircleRec(perso1.pos, 1000.0f, battle[0])) perso1.pos.x += 10; 	
+			if(IsKeyDown(KEY_SPACE)) perso1.pos.x -= PLAYER_SPEED_JUMP;
+		
 		}
 		
 		if(perso1.pos.x > recs[0].width || perso1.pos.x < 0 || perso1.pos.y != (screenheight/2) - 85) perso1.pos.y += 2;		
