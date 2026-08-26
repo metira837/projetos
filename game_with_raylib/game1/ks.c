@@ -52,14 +52,14 @@ int main(void){
 
 		if(IsKeyDown(KEY_D)) perso1.pos.x += PLAYER_SPEED; 
 
-		if(IsKeyDown(KEY_W) && perso1.pos.y == screenheight/2-20) perso1.pos.y -= PLAYER_SPEED_JUMP;
+		if(IsKeyDown(KEY_W) && perso1.pos.y == screenheight/2-85) perso1.pos.y -= PLAYER_SPEED_JUMP;
 
 		if(IsKeyDown(KEY_S)) perso1.pos.y += PLAYER_SPEED;
 
 		if(IsKeyDown(KEY_A)) perso1.pos.x -= PLAYER_SPEED;
 
 
-		if(CheckCollisionCircleRec(perso1.pos, 60.0f, recs[0])) perso1.pos.y  = screenheight/2 - 85;
+		if(CheckCollisionCircleRec(perso1.pos, 80.0f, recs[0])) perso1.pos.y  = screenheight/2 - 85;
 		if(CheckCollisionCircleRec(perso1.pos, 10.0f, recs[1])) perso1.pos.y += 20;
 		if(CheckCollisionCircleRec(perso1.pos, 10.0f, recs[2])) perso1.pos.x += 10;
 		if(start_battle){
