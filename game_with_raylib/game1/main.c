@@ -8,7 +8,14 @@ struct perso{
 	Vector2 pos;
 	short int damage;
 	Texture2D texture;
+	Vector2 attack;
+	bool can_attack;
+//	when player click on E attack go to left that represent how true 
+// 	when player click on R attack go to right that represent how false 
+	bool side;
+
 };
+
 struct enemy{
 	short int hp;
 	Vector2 pos;
@@ -18,6 +25,7 @@ struct enemy{
 
 
 void draw_rectangle(Rectangle rec[], int recLeght);
+void collision_attack(Rectangle rec[], int recLeght);
 
 int main(void){
 	const int screenwidth = 1500, screenheight = 700;
@@ -25,11 +33,11 @@ int main(void){
 
 // 	declare the perso and enemy
 	struct perso perso1 = {.hp = 100, .damage = 10, .pos = {screenwidth/2, screenheight/2-100}};
+	perso1.can_attack = true;
 	Image image_perso = LoadImage("ant.png");
 	ImageResizeNN(&image_perso, 100, 100);
 	perso1.texture = LoadTextureFromImage(image_perso);
 	
-	struct enemy enemy1;
 
 //	declare rectangle
 	Rectangle recs[] =  {{0, screenheight/2, 5000, 1000}, {0, perso1.pos.y - 400, 3000, 300}, {0, -150, 50, 2000}};
@@ -37,7 +45,7 @@ int main(void){
 
 	bool start_battle = false;
 
-//     camera
+//     	camera
 	Camera2D ca = {0};
 	ca.target = perso1.pos;
 	ca.offset = (Vector2) {screenwidth/2, screenheight/2};
@@ -49,6 +57,17 @@ int main(void){
 	
 
 	while(!WindowShouldClose()){
+		if(IsKeyDown(KEY_R) && perso1.can_attack){		
+			perso1.side = false;	
+			perso1.can_attack = false;
+			perso1.attack = (Vector2) {perso1.pos.x + 60, perso1.pos.y + 50};
+		} 
+		if(IsKeyDown(KEY_E) && perso1.can_attack){
+			perso1.side = true;	
+			perso1.can_attack = false;		
+			perso1.attack = (Vector2) {perso1.pos.x + 60, perso1.pos.y + 50};
+
+		}
 
 		if(IsKeyDown(KEY_D)) perso1.pos.x += PLAYER_SPEED; 
 
@@ -67,10 +86,22 @@ int main(void){
 			if(CheckCollisionCircleRec(perso1.pos, 3.0f, battle[0])) perso1.pos.x += 10; 	
 		}
 		
+		if(perso1.can_attack == false){
+			if(perso1.side == true){
+				perso1.attack.x -= 5;	
+			}	
+			if(perso1.side == false){
+				perso1.attack.x += 5;	
+			}
+		
+		}	
+
+
 		if(perso1.pos.x > recs[0].width || perso1.pos.x < 0 || perso1.pos.y != (screenheight/2) - 85) perso1.pos.y += 2;		
 		if(perso1.pos.x > recs[1].width) start_battle = true;	
-		
+
 		ca.target = Vector2Lerp(ca.target, perso1.pos, 0.100f);
+	
 	
 		BeginDrawing();
 		  ClearBackground(RAYWHITE);	
@@ -83,6 +114,7 @@ int main(void){
 		
 			
 			}
+			if(perso1.can_attack == false) DrawCircleV(perso1.attack, 10.0f, YELLOW);
 
 		 EndMode2D();	
 		EndDrawing();
@@ -97,5 +129,10 @@ int main(void){
 
 void draw_rectangle(Rectangle rec[], int recLeght){
 	for(int a = 0; a < recLeght; a ++) DrawRectangleRec(rec[a], DARKGRAY);
+}
+
+void collision_attack(Rectangle rec[], int recLeght){
+
+
 }
 
