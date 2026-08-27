@@ -88,14 +88,14 @@ int main(void){
 		
 		if(perso1.can_attack == false){
 			if(perso1.side == true){
-				perso1.attack.x -= 10;	
+				perso1.attack.x -= 14;	
 				if(collision_attack(recs, sizeof(recs) / sizeof(recs[0]), perso1.attack)) perso1.can_attack = true;
-				if(collision_attack(battle, sizeof(battle) / sizeof(battle[0]), perso1.attack)) perso1.can_attack = true;
+				if(start_battle) if(collision_attack(battle, sizeof(battle) / sizeof(battle[0]), perso1.attack)) perso1.can_attack = true;
 			}	
-			if(perso1.side == false){
-				perso1.attack.x += 10;	
+			if(perso1.side == false){ 
+				perso1.attack.x += 14;	
 				if(collision_attack(recs, sizeof(recs) / sizeof(recs[0]), perso1.attack)) perso1.can_attack = true;
-				if(collision_attack(battle, sizeof(battle) / sizeof(battle[0]), perso1.attack)) perso1.can_attack = true;
+				if(start_battle) if(collision_attack(battle, sizeof(battle) / sizeof(battle[0]), perso1.attack)) perso1.can_attack = true;
 			}
 		
 		}	
