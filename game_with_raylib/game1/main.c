@@ -37,7 +37,7 @@ int main(void){
 	Image image_perso = LoadImage("ant.png");
 	ImageResizeNN(&image_perso, 100, 100);
 	perso1.texture = LoadTextureFromImage(image_perso);
-	
+	struct enemy enemy1 = {.hp = 100};	
 
 //	declare rectangle
 	Rectangle recs[] =  {{0, screenheight/2, 5000, 1000}, {0, perso1.pos.y - 400, 3000, 300}, {0, -150, 50, 2000}};
@@ -61,7 +61,7 @@ int main(void){
 			perso1.side = false;	
 			perso1.can_attack = false;
 			perso1.attack = (Vector2) {perso1.pos.x + 60, perso1.pos.y + 50};
-		} 
+			}
 		if(IsKeyDown(KEY_E) && perso1.can_attack){
 			perso1.side = true;	
 			perso1.can_attack = false;		
@@ -121,6 +121,15 @@ int main(void){
 			if(perso1.can_attack == false) DrawCircleV(perso1.attack, 10.0f, YELLOW);
 
 		 EndMode2D();	
+		if(perso1.hp <= 0){
+			ClearBackground(RAYWHITE);
+			DrawText("you lose !", screenwidth/3 + 150, screenheight/2, 50, RED);		
+				
+		}
+		if(enemy1.hp <= 0){
+			ClearBackground(RAYWHITE);
+			DrawText("you win !", screenwidth/3 + 150, screenheight/2, 50, GREEN);		
+		}
 		EndDrawing();
 	
 	
