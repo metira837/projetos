@@ -16,16 +16,8 @@ struct perso{
 
 };
 
-struct enemy{
-	short int hp;
-	Vector2 pos;
-	short int damage;
-	Vector2 attack;
-	bool can_attack;
-	Texture2D texture;
-};
 
-
+void collision_attack_perso(struct perso *perso1,struct perso *enemy1, float radiusx, float radiusy,  Rectangle *recs, short int tamrec, Rectangle *battle, short int tambattle, bool start_battle);
 void draw_rectangle(Rectangle rec[], int recLeght);
 bool collision_attack(Rectangle rec[], int recLeght, Vector2 shoot);
 
@@ -40,7 +32,7 @@ int main(void){
 	ImageResizeNN(&image_perso, 100, 100);
 	perso1.texture = LoadTextureFromImage(image_perso);
 
-	struct enemy enemy1 = {.hp = 100, .damage = 10, .pos = {screenwidth+3000, screenheight/2-93}};	
+	struct perso enemy1 = {.hp = 100, .damage = 10, .pos = {screenwidth+3000, screenheight/2-93}};	
 
 	Image image_enemy = LoadImage("tatu.png");
 	ImageResizeNN(&image_enemy, 100, 100);
@@ -53,6 +45,8 @@ int main(void){
 //	declare rectangle
 	Rectangle recs[] =  {{0, screenheight/2, 5000, 1000}, {0, perso1.pos.y - 400, 3000, 300}, {0, -150, 50, 2000}};
 	Rectangle battle[] = {{2800, 0, 200, 1000}, {5000, -100, 100, 1000}};
+	short int tamrec = sizeof(recs) / sizeof(recs[0]);
+	short int tambattle = sizeof(battle) / sizeof(battle[0]);
 
 	bool start_battle = false;
 
@@ -98,45 +92,30 @@ int main(void){
 		}
 		
 		if(perso1.can_attack == false){
-			if(perso1.side == true){
-				perso1.attack.x -= 14;	
-				if(collision_attack(recs, sizeof(recs) / sizeof(recs[0]), perso1.attack)) perso1.can_attack = true;
-				if(start_battle) {
-					if(collision_attack(battle, sizeof(battle) / sizeof(battle[0]), perso1.attack)) perso1.can_attack = true;
-					if(CheckCollisionCircles(perso1.attack, 43.5f, enemy1.pos, 35.0f)) {
-						perso1.can_attack = true;
-						enemy1.hp -= 10;
-					}
-				}
-			}	
-			if(perso1.side == false){ 
-				perso1.attack.x += 14;	
-				if(collision_attack(recs, sizeof(recs) / sizeof(recs[0]), perso1.attack)) perso1.can_attack = true;
-				if(start_battle) {
-					if(collision_attack(battle, sizeof(battle) / sizeof(battle[0]), perso1.attack)) perso1.can_attack = true;
-					if(CheckCollisionCircles(perso1.attack, 43.5f, enemy1.pos, 15.0f)) {
-						perso1.can_attack = true;
-						enemy1.hp -= 10;
-					}
+			if(perso1.side)
+				collision_attack_perso(&perso1, &enemy1, 43.0f, 35.0f, recs, tamrec, battle, tambattle, start_battle);	
+			else
+				collision_attack_perso(&perso1, &enemy1, 43.0f, 35.0f, recs, tamrec, battle, tambattle, start_battle);	
 
-				}
-			}
+
 		
 		}	
+
+			
+			
 
 
 		if(perso1.pos.x > recs[0].width || perso1.pos.x < 0 || perso1.pos.y != (screenheight/2) - 85) perso1.pos.y += 2;		
 		if(perso1.pos.x > recs[1].width) start_battle = true;	
 
-		enemy1.attack = enemy1.pos;
-		if(perso1.pos.x < enemy1.pos.x){
+	/*	if(perso1.pos.x < enemy1.pos.x){
 		       	enemy1.pos.x -= 5;	
-			if(collision_attack(battle, sizeof(battle) / sizeof(battle[0]), enemy1.attack)) enemy1.can_attack = true;
 		}
 		
 		else { 
 			enemy1.pos.x += 5;
 		}
+		*/
 		
 
 		if(enemy1.hp <= 50){
@@ -171,14 +150,15 @@ int main(void){
 			DrawText("you win !", screenwidth/3 + 150, screenheight/2, 50, GREEN);		
 		}
 		EndDrawing();
-	
-	
 	}
+	
+	
 	CloseWindow();
 	return 0;
 
-
 }
+
+
 
 void draw_rectangle(Rectangle rec[], int recLeght){
 	for(int a = 0; a < recLeght; a ++) DrawRectangleRec(rec[a], DARKGRAY);
@@ -197,4 +177,17 @@ bool collision_attack(Rectangle rec[], int recLeght, Vector2 shoot){
 	return collision;
 
 }
+void collision_attack_perso(struct perso *perso1,struct perso *enemy1, float radiusx, float radiusy, Rectangle *recs, short int tamrec, Rectangle *battle, short int tambattle, bool start_battle){
+		if(perso1->side) perso1->attack.x -= 14;	
+		if(perso1->side == false) perso1->attack.x += 14;	
+
+		if(collision_attack(recs, tamrec, perso1->attack)) perso1->can_attack = true;
+			if(start_battle) {
+				if(collision_attack(battle, tambattle, perso1->attack)) perso1->can_attack = true;
+				if(CheckCollisionCircles(perso1->attack, radiusx, enemy1->pos, radiusy)) {
+					perso1->can_attack = true;
+					enemy1->hp -= 10;
+					}
+				}
+		}
 

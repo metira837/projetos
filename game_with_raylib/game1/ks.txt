@@ -1,0 +1,12 @@
+ if(perso1.can_attack == false){
+                        if(perso1.side == true){
+                                perso1.attack.x -= 14;
+                                if(collision_attack(recs, sizeof(recs) / sizeof(recs[0]), perso1.attack)) perso1.can_attack = true;
+                                if(start_battle) {
+                                        if(collision_attack(battle, sizeof(battle) / sizeof(battle[0]), perso1.attack)) perso1.can_attack = true;
+                                        if(CheckCollisionCircles(perso1.attack, 43.5f, enemy1.pos, 35.0f)) {
+                                                perso1.can_attack = true;
+                                                enemy1.hp -= 10;
+                                        }
+                                }
+                        }
