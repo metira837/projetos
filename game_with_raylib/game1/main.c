@@ -41,7 +41,7 @@ int main(void){
 	ImageResizeNN(&image_enemy_rage, 100, 100);
 
 	enemy1.texture = LoadTextureFromImage(image_enemy);
-
+	enemy1.can_attack = true;
 //	declare rectangle
 	Rectangle recs[] =  {{0, screenheight/2, 5000, 1000}, {0, perso1.pos.y - 400, 3000, 300}, {0, -150, 50, 2000}};
 	Rectangle battle[] = {{2800, 0, 200, 1000}, {5000, -100, 100, 1000}};
@@ -90,37 +90,43 @@ int main(void){
 			if(CheckCollisionCircleRec(perso1.pos, 85.0f, battle[1])) perso1.pos.x -= 10;
 			if(CheckCollisionCircleRec(perso1.pos, 3.0f, battle[0])) perso1.pos.x += 10; 	
 		}
+
 		
 		if(perso1.can_attack == false){
-			if(perso1.side)
-				collision_attack_perso(&perso1, &enemy1, 43.0f, 35.0f, recs, tamrec, battle, tambattle, start_battle);	
-			else
-				collision_attack_perso(&perso1, &enemy1, 43.0f, 35.0f, recs, tamrec, battle, tambattle, start_battle);	
-
-
-		
+			collision_attack_perso(&perso1, &enemy1, 43.0f, 35.0f, recs, tamrec, battle, tambattle, start_battle);	
 		}	
-
-			
-			
-
 
 		if(perso1.pos.x > recs[0].width || perso1.pos.x < 0 || perso1.pos.y != (screenheight/2) - 85) perso1.pos.y += 2;		
 		if(perso1.pos.x > recs[1].width) start_battle = true;	
 
-	/*	if(perso1.pos.x < enemy1.pos.x){
-		       	enemy1.pos.x -= 5;	
-		}
+		if(start_battle){
+			if(CheckCollisionCircleRec(perso1.pos, 85.0f, battle[1])) perso1.pos.x -= 10;
+			if(CheckCollisionCircleRec(perso1.pos, 3.0f, battle[0])) perso1.pos.x += 10; 	
+			if(perso1.pos.x < enemy1.pos.x) enemy1.pos.x -= 5;
 		
-		else { 
-			enemy1.pos.x += 5;
-		}
-		*/
-		
+			else  enemy1.pos.x += 5;	
+			if(enemy1.can_attack){
+				enemy1.attack = (Vector2)  {enemy1.pos.x -10, enemy1.pos.y + 40};
 
-		if(enemy1.hp <= 50){
-			enemy1.texture = LoadTextureFromImage(image_enemy_rage);	
+				if(perso1.pos.x < enemy1.pos.x) enemy1.side = true;
+				else if(perso1.pos.x > enemy1.pos.x) enemy1.side = false;
+				enemy1.can_attack = false;
+		}
+			if(enemy1.can_attack == false){
+			if(enemy1.side == true) enemy1.attack.x -= 14;	
+			else if(enemy1.side == false) enemy1.attack.x += 14;
+			collision_attack_perso(&enemy1, &perso1, 43.0f,35.0f, recs, tamrec, battle, tambattle, start_battle);	
+
+					
+		
+		}
+
+			if(enemy1.hp <= 50){
+				enemy1.texture = LoadTextureFromImage(image_enemy_rage);	
 			}
+		
+		}
+	
 		ca.target = Vector2Lerp(ca.target, perso1.pos, 0.100f);
 
 	
@@ -142,11 +148,13 @@ int main(void){
 		 EndMode2D();	
 		if(perso1.hp <= 0){
 			ClearBackground(RAYWHITE);
+			perso1.pos.x = 7000;		
 			DrawText("you lose !", screenwidth/3 + 150, screenheight/2, 50, RED);		
 				
 		}
 		if(enemy1.hp <= 0){
 			ClearBackground(RAYWHITE);
+			perso1.pos.x = 7000;		
 			DrawText("you win !", screenwidth/3 + 150, screenheight/2, 50, GREEN);		
 		}
 		EndDrawing();
