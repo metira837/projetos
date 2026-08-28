@@ -20,7 +20,9 @@ struct enemy{
 	short int hp;
 	Vector2 pos;
 	short int damage;
-	Image texture;
+	Vector2 attack;
+	bool can_attack;
+	Texture2D texture;
 };
 
 
@@ -37,7 +39,16 @@ int main(void){
 	Image image_perso = LoadImage("ant.png");
 	ImageResizeNN(&image_perso, 100, 100);
 	perso1.texture = LoadTextureFromImage(image_perso);
-	struct enemy enemy1 = {.hp = 100};	
+
+	struct enemy enemy1 = {.hp = 100, .damage = 10, .pos = {screenwidth+3000, screenheight/2-93}};	
+
+	Image image_enemy = LoadImage("tatu.png");
+	ImageResizeNN(&image_enemy, 100, 100);
+
+	Image image_enemy_rage = LoadImage("taturage.png");
+	ImageResizeNN(&image_enemy_rage, 100, 100);
+
+	enemy1.texture = LoadTextureFromImage(image_enemy);
 
 //	declare rectangle
 	Rectangle recs[] =  {{0, screenheight/2, 5000, 1000}, {0, perso1.pos.y - 400, 3000, 300}, {0, -150, 50, 2000}};
@@ -90,12 +101,25 @@ int main(void){
 			if(perso1.side == true){
 				perso1.attack.x -= 14;	
 				if(collision_attack(recs, sizeof(recs) / sizeof(recs[0]), perso1.attack)) perso1.can_attack = true;
-				if(start_battle) if(collision_attack(battle, sizeof(battle) / sizeof(battle[0]), perso1.attack)) perso1.can_attack = true;
+				if(start_battle) {
+					if(collision_attack(battle, sizeof(battle) / sizeof(battle[0]), perso1.attack)) perso1.can_attack = true;
+					if(CheckCollisionCircles(perso1.attack, 43.5f, enemy1.pos, 35.0f)) {
+						perso1.can_attack = true;
+						enemy1.hp -= 10;
+					}
+				}
 			}	
 			if(perso1.side == false){ 
 				perso1.attack.x += 14;	
 				if(collision_attack(recs, sizeof(recs) / sizeof(recs[0]), perso1.attack)) perso1.can_attack = true;
-				if(start_battle) if(collision_attack(battle, sizeof(battle) / sizeof(battle[0]), perso1.attack)) perso1.can_attack = true;
+				if(start_battle) {
+					if(collision_attack(battle, sizeof(battle) / sizeof(battle[0]), perso1.attack)) perso1.can_attack = true;
+					if(CheckCollisionCircles(perso1.attack, 43.5f, enemy1.pos, 15.0f)) {
+						perso1.can_attack = true;
+						enemy1.hp -= 10;
+					}
+
+				}
 			}
 		
 		}	
@@ -104,13 +128,28 @@ int main(void){
 		if(perso1.pos.x > recs[0].width || perso1.pos.x < 0 || perso1.pos.y != (screenheight/2) - 85) perso1.pos.y += 2;		
 		if(perso1.pos.x > recs[1].width) start_battle = true;	
 
+		enemy1.attack = enemy1.pos;
+		if(perso1.pos.x < enemy1.pos.x){
+		       	enemy1.pos.x -= 5;	
+			if(collision_attack(battle, sizeof(battle) / sizeof(battle[0]), enemy1.attack)) enemy1.can_attack = true;
+		}
+		
+		else { 
+			enemy1.pos.x += 5;
+		}
+		
+
+		if(enemy1.hp <= 50){
+			enemy1.texture = LoadTextureFromImage(image_enemy_rage);	
+			}
 		ca.target = Vector2Lerp(ca.target, perso1.pos, 0.100f);
-	
+
 	
 		BeginDrawing();
 		  ClearBackground(RAYWHITE);	
 		  BeginMode2D(ca);
 		  	DrawTexture(perso1.texture, perso1.pos.x, perso1.pos.y, WHITE);
+			DrawTexture(enemy1.texture, enemy1.pos.x, enemy1.pos.y, WHITE);
 			DrawText("merda na chaleira", 500, 300, 50, DARKGRAY);
 			draw_rectangle(recs, sizeof(recs) /  sizeof(recs[0]));		
 			if(start_battle){
@@ -119,6 +158,7 @@ int main(void){
 			
 			}
 			if(perso1.can_attack == false) DrawCircleV(perso1.attack, 10.0f, YELLOW);
+			if(enemy1.can_attack == false) DrawCircleV(enemy1.attack, 10.0f, YELLOW);
 
 		 EndMode2D();	
 		if(perso1.hp <= 0){
